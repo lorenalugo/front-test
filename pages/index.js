@@ -38,12 +38,12 @@ export default function SimpleList() {
   }, []);
 
   return (
-    <div className={classes.root}>
+    <div className="container">
       <Grid container justify="space-between">
         <Typography component="h2" variant="h5">
           Pasajeros
         </Typography>
-        <Button><a href="/passenger">Agregar nuevo pasajero</a></Button>
+        <Button color="primary" variant="outlined"><a href="/passenger">Agregar nuevo pasajero</a></Button>
       </Grid>
       <List component="div" aria-label="passengers list">
         <Grid container justify="space-between">

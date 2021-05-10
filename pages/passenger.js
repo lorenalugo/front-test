@@ -10,13 +10,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import API from './api';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
-    width: '90%',
-    maxWidth: 800,
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ddd',
-    margin: 'auto',
+    padding: 10,
   },
 }));
 
@@ -61,7 +57,7 @@ export default function NewPassenger() {
       if (key === 'flightNumber' && formData[key].length < 5) {
         error.flightNumber = true;
       }
-      if (key === 'packages' && formData[key].length === 0) {
+      if (key === 'packages' && (formData[key].length === 0 || formData[key].length > 3)) {
         error.packages = true;
       }
     });
@@ -74,8 +70,11 @@ export default function NewPassenger() {
     return error;
   };
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className="container" noValidate autoComplete="off">
       <div>
+        <Grid container justify="flex-end">
+          <Button color="primary" variant="outlined"><a href="/">Regresar</a></Button>
+        </Grid>
         <Grid container alignItems="center" justify="space-around">
           <TextField
             required
@@ -84,6 +83,7 @@ export default function NewPassenger() {
             onChange={e => handleChange('names', e)}
             helperText="Requerido"
             error={!!formErrors.names}
+            className={classes.root}
           />
           <TextField
             required
@@ -95,12 +95,13 @@ export default function NewPassenger() {
             }}
             helperText="Debe contener 5 caracteres. Requerido"
             error={!!formErrors.flightNumber}
+            className={classes.root}
           />
           <Grid item>
-            <Button onClick={handleClick}>Agregar equipaje</Button>
+            <Button onClick={handleClick} color="primary" variant="outlined">Agregar equipaje</Button>
             {formErrors.packages ? (
               <Typography color="error" component="p" variant="body2">
-                Debe ingresar al menos un equipaje
+                Debe ingresar al menos un equipaje (tres como máximo).
               </Typography>
             ) : null}
           </Grid>
@@ -109,7 +110,7 @@ export default function NewPassenger() {
         {formData.packages.length > 0
           ? formData.packages.map((p, index) => (
             <Grid container alignItems="center" key={p.typeId}>
-              <InputLabel id="select-label">Equipaje</InputLabel>
+              <InputLabel id="select-label" className={classes.root}>Equipaje</InputLabel>
               <Select
                 labelId="select-label"
                 value={p.typeId}
@@ -123,7 +124,7 @@ export default function NewPassenger() {
           ))
           : null}
         <Grid container justify="center">
-          <Button onClick={handleFinish}>Guardar</Button>
+          <Button onClick={handleFinish} color="primary" variant="outlined">Guardar</Button>
         </Grid>
       </div>
     </form>

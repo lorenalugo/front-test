@@ -35,7 +35,15 @@ const PassengerById = () => {
     }
   };
   return (
-    <div>
+    <div className="container">
+      <Grid container justify="flex-end">
+        <Button color="primary" variant="outlined"><a href="/">Regresar</a></Button>
+      </Grid>
+      <Typography component="h2" variant="h5">
+        Pasajero:
+        {' '}
+        {id}
+      </Typography>
       <List component="div" aria-label="passengers list">
         <Grid container justify="space-between">
           <Grid item xs={2}><Typography>Número</Typography></Grid>
@@ -55,7 +63,7 @@ const PassengerById = () => {
         )}
       </List>
       <Grid container justify="space-between">
-        <Button onClick={handleClick}>Retirar equipaje</Button>
+        <Button onClick={handleClick} color="primary" variant="outlined">Retirar equipaje</Button>
       </Grid>
     </div>
   );
