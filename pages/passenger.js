@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NewPassenger() {
   const classes = useStyles();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     names: '',
     flightNumber: '',
@@ -65,6 +67,7 @@ export default function NewPassenger() {
     });
     if (Object.keys(error).length === 0) {
       const result = await API.createPassenger(formData);
+      router.push('/');
       return result;
     }
     setFormErrors(error);

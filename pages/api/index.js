@@ -11,15 +11,13 @@ const axiosInstance = axios.create({
 
 const API = {
   getPassengers: () => axiosInstance.get('/passengers'),
-  getPassengerById: passengerId => axiosInstance.get('/passengers', { params: { passengerId } }),
+  getPassengerById: passengerId => axiosInstance.get('/passengers/:passengerId', { params: { passengerId } }),
   createPassenger: ({ names, flightNumber, packages }) => axiosInstance.post('/passengers', {
     names,
     flightNumber,
     packages,
   }),
-  updatePackages: passengerId => axiosInstance.put('/passengers', {
-    params: { passengerId },
-  }),
+  updatePackages: passengerId => axiosInstance.put('/passengers/:passengerId', { passengerId }),
 };
 
 export default API;
